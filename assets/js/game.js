@@ -86,14 +86,15 @@ var startGame = function()
       enemyHealth = 50;
 
       fight(pickedEnemyName);
-    }
-    if (playerHealth > 0 && i < enemyNames.length - 1) {
-      // ask if player wants to use the store before next round
-      var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
-    
-      // if yes, take them to the store() function
-      if (storeConfirm) {
-        shop();
+      // if player is still alive and we're not at the last enemy in the array
+      if (playerHealth > 0 && i < enemyNames.length - 1) {
+        // ask if player wants to use the store before next round
+        var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+      
+        // if yes, take them to the store() function
+        if (storeConfirm) {
+          shop();
+        }
       }
     }
     else {
@@ -120,10 +121,20 @@ var endGame = function() {
     // ask player if they'd like to play again
 var playAgainConfirm = window.confirm("Would you like to play again?");
 
+if (playAgainConfirm) {
+  // restart the game
+  startGame();
+} 
+
+else {
+  window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+}
+};
 var shop = function() {
   var shopOptionPrompt = window.prompt(
-    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.")
-  };
+    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+  );
+  // use switch to carry out action
   switch (shopOptionPrompt) {
     case "REFILL": // new case
     case "refill":
@@ -160,14 +171,11 @@ var shop = function() {
       shop();
       break;
   }
-if (playAgainConfirm) {
-  // restart the game
-  startGame();
-} 
-else {
-  window.alert("Thank you for playing Robot Gladiators! Come back soon!");
-}
+
+
+
 };
+
 // start the game when the page loads
 
 startGame();
